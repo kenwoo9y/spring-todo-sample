@@ -1,6 +1,8 @@
 package com.example.springtodosample.repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.example.springtodosample.entity.Task;
@@ -21,8 +23,24 @@ public class TaskDaoImpl implements TaskDao {
 
     @Override
     public List<Task> findAll() {
-        // TODO Auto-generated method stub
-        return null;
+        String sql = "SELECT task_id, user_id, title, detail, deadline FROM task";
+
+        List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql);
+
+        List<Task> taskList = new ArrayList<Task>();
+
+        for(Map<String, Object> result: resultList) {
+            Task task = new Task();
+            task.setTaskId((int)result.get("taskId"));
+            task.setUserId((int)result.get("userId"));
+            task.setTitle((String)result.get("title"));
+            task.setDetail((String)result.get("detail"));
+            task.setDeadline((String)result.get("deadline"));
+
+            taskList.add(task);
+        }
+
+        return taskList;
     }
 
     @Override
