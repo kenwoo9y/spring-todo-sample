@@ -45,8 +45,20 @@ public class TaskDaoImpl implements TaskDao {
 
     @Override
     public Optional<Task> findById(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        String sql = "SELECT task_id, user_id, title, detail, deadline FROM task WHERE task_id = ?";
+
+        Map<String, Object> result = jdbcTemplate.queryForMap(sql, id);
+
+        Task task = new Task();
+        task.setTaskId((int)result.get("taskId"));
+        task.setUserId((int)result.get("userId"));
+        task.setTitle((String)result.get("title"));
+        task.setDetail((String)result.get("detail"));
+        task.setDeadline((String)result.get("deadline"));
+
+        Optional<Task> taskOptional = Optional.ofNullable(task);
+
+        return taskOptional;
     }
 
     @Override
