@@ -91,8 +91,9 @@ public class TaskDaoImpl implements TaskDao {
 
     @Override
     public int deleteById(int id) {
-        // TODO Auto-generated method stub
-        return 0;
+        String sql = "DELETE FROM task WHERE task_id = ?";
+
+        return jdbcTemplate.update(sql, id);
     }
     
 }
