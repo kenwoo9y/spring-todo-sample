@@ -63,7 +63,15 @@ public class TaskDaoImpl implements TaskDao {
 
     @Override
     public void insert(Task task) {
-        // TODO Auto-generated method stub
+        String sql = "INSERT INTO task(user_id, title, detail, deadline) VALUES(?,?,?,?)";
+
+        jdbcTemplate.update(
+            sql, 
+            task.getUserId(),
+            task.getTitle(),
+            task.getDetail(),
+            task.getDeadline()
+        );
         
     }
 
